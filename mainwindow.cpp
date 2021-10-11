@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
+#include <math.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -24,6 +25,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnMinus, SIGNAL(clicked()), this, SLOT(btnBinaryOperatorClicked()));
     connect(ui->btnMultiple, SIGNAL(clicked()), this, SLOT(btnBinaryOperatorClicked()));
     connect(ui->btnDivide, SIGNAL(clicked()), this, SLOT(btnBinaryOperatorClicked()));
+
+    connect(ui->btnPercentage, SIGNAL(clicked()), this, SLOT(btnUnaryOperatorClicked()));
+    connect(ui->btnInverse, SIGNAL(clicked()), this, SLOT(btnUnaryOperatorClicked()));
+    connect(ui->btnSquare, SIGNAL(clicked()), this, SLOT(btnUnaryOperatorClicked()));
+    connect(ui->btnSqrt, SIGNAL(clicked()), this, SLOT(btnUnaryOperatorClicked()));
 }
 
 MainWindow::~MainWindow()
@@ -141,6 +147,25 @@ void MainWindow::btnBinaryOperatorClicked()
     }
 
 
+}
+
+void MainWindow::btnUnaryOperatorClicked()
+{
+    if(operand != ""){
+        double result = operand.toDouble();
+        QString opcode = qobject_cast<QPushButton *>(sender())->text();
+        if(opcode == "%")
+            result /= 100;
+        else if(opcode == "1/x")
+            result = 1/result;
+        else if(opcode == "x^2")
+            result *= result;
+        else if(opcode == "√")
+            result = sqrt(result);
+
+        operand = QString::number(result);
+        ui->display->setText(QString::number(result));
+    }
 }
 
 
