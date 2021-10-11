@@ -6,12 +6,34 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>456</width>
-    <height>312</height>
+    <width>490</width>
+    <height>441</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton{
+	background-color: rgba(50, 50, 50, 100);
+	font-size: 36pt;
+	color: white;
+	border-radius: 2px;
+}
+
+QPushButton:hover {
+	background-color: lightgreen;
+	color: black;
+}
+
+QPushButton:pressed {
+	background-color: red;
+	color: black;
+}
+
+QLineEdit{
+	font-size: 48pt;
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -369,7 +391,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>456</width>
+     <width>490</width>
      <height>22</height>
     </rect>
    </property>

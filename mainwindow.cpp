@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+//    this->setStyleSheet("QPushButton{background-color: red}");
+
     connect(ui->btnNum0, SIGNAL(clicked()), this, SLOT(btnNumClicked()));
     connect(ui->btnNum1, SIGNAL(clicked()), this, SLOT(btnNumClicked()));
     connect(ui->btnNum2, SIGNAL(clicked()), this, SLOT(btnNumClicked()));
@@ -30,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnInverse, SIGNAL(clicked()), this, SLOT(btnUnaryOperatorClicked()));
     connect(ui->btnSquare, SIGNAL(clicked()), this, SLOT(btnUnaryOperatorClicked()));
     connect(ui->btnSqrt, SIGNAL(clicked()), this, SLOT(btnUnaryOperatorClicked()));
+    connect(ui->btnSign, SIGNAL(clicked()), this, SLOT(btnUnaryOperatorClicked()));
 }
 
 MainWindow::~MainWindow()
@@ -162,6 +165,8 @@ void MainWindow::btnUnaryOperatorClicked()
             result *= result;
         else if(opcode == "√")
             result = sqrt(result);
+        else if(opcode == "+/-")
+            result = -result;
 
         operand = QString::number(result);
         ui->display->setText(QString::number(result));
