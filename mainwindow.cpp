@@ -1,0 +1,157 @@
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <QDebug>
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+
+    connect(ui->btnNum0, SIGNAL(clicked()), this, SLOT(btnNumClicked()));
+    connect(ui->btnNum1, SIGNAL(clicked()), this, SLOT(btnNumClicked()));
+    connect(ui->btnNum2, SIGNAL(clicked()), this, SLOT(btnNumClicked()));
+    connect(ui->btnNum3, SIGNAL(clicked()), this, SLOT(btnNumClicked()));
+    connect(ui->btnNum4, SIGNAL(clicked()), this, SLOT(btnNumClicked()));
+    connect(ui->btnNum5, SIGNAL(clicked()), this, SLOT(btnNumClicked()));
+    connect(ui->btnNum6, SIGNAL(clicked()), this, SLOT(btnNumClicked()));
+    connect(ui->btnNum7, SIGNAL(clicked()), this, SLOT(btnNumClicked()));
+    connect(ui->btnNum8, SIGNAL(clicked()), this, SLOT(btnNumClicked()));
+    connect(ui->btnNum9, SIGNAL(clicked()), this, SLOT(btnNumClicked()));
+
+    // 双操作数操作符处理
+    connect(ui->btnPlus, SIGNAL(clicked()), this, SLOT(btnBinaryOperatorClicked()));
+    connect(ui->btnMinus, SIGNAL(clicked()), this, SLOT(btnBinaryOperatorClicked()));
+    connect(ui->btnMultiple, SIGNAL(clicked()), this, SLOT(btnBinaryOperatorClicked()));
+    connect(ui->btnDivide, SIGNAL(clicked()), this, SLOT(btnBinaryOperatorClicked()));
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+QString MainWindow::calculation(bool *ok)
+{
+    double result = 0;
+    if(operands.size() == 2 && opcodes.size() > 0){
+        // 从堆栈operands获取操作数
+        double operand1 = operands.front().toDouble();
+        operands.pop_front();
+        double operand2 = operands.front().toDouble();
+        operands.pop_front();
+
+        // 从堆栈opcodes获取操作符
+        QString op = opcodes.front();
+        opcodes.pop_front();
+
+        if(op == "+"){
+            result = operand1 + operand2;
+        }
+        else if(op == "-"){
+            result = operand1 - operand2;
+        }
+        else if(op == "×"){
+            result = operand1 * operand2;
+        }
+        else if(op == "÷"){
+            result = operand1 / operand2;
+        }
+
+        ui->statusbar->showMessage(QString("calculation is progress: operands is %1, opcodes is %2").arg(
+                                       operands.size()).arg(opcodes.size()));
+
+        // 保存当前结果作为操作数
+        operands.push_back(QString::number(result));
+        return QString::number(result);
+    }
+    else{
+        ui->statusbar->showMessage(QString("operands is %1, opcodes is %2").arg(operands.size()).arg(opcodes.size()));
+        return operands.front();
+    }
+
+
+
+}
+
+
+void MainWindow::btnNumClicked()
+{
+    // 获取按键数
+    QString digit = qobject_cast<QPushButton *>(sender())->text();
+    // 防止display栏出现多个0开头的，如0002084
+//    if(digit == "0" && operand == "0")
+//        digit = "";
+//    // 防止display栏出现以0开头的，如02084
+//    if(operand == "0" && digit != "0")
+//        operand = "";
+
+    // 防止display栏出现诸如0002084或02084的情况
+    if(operand == "0"){
+        if(digit == "0")
+            digit = "";
+        else
+            operand = "";
+    }
+
+    operand += digit;
+
+    ui->display->setText(operand);
+}
+
+
+
+void MainWindow::on_btnPeriod_clicked()
+{
+    if(!operand.contains("."))
+        operand += qobject_cast<QPushButton *>(sender())->text();
+    ui->display->setText(operand);
+}
+
+
+void MainWindow::on_btnDel_clicked()
+{
+    operand = operand.left(operand.length()-1);
+    ui->display->setText(operand);
+}
+
+
+void MainWindow::on_btnClearAll_clicked()
+{
+    operand.clear();
+    ui->display->setText(operand);
+}
+
+
+void MainWindow::btnBinaryOperatorClicked()
+{
+    ui->statusbar->showMessage("last operand " + operand);
+    // 获取操作符
+    QString opcode = qobject_cast<QPushButton *>(sender())->text();
+
+    // 如果操作数非空，即display里有数
+    if(operand != ""){
+        operands.push_back(operand);
+        operand = "";
+
+        opcodes.push_back(opcode);
+        QString result = calculation();
+
+        ui->display->setText(result);
+    }
+
+
+}
+
+
+void MainWindow::on_btnEqual_clicked()
+{
+    if(operand != ""){
+            operands.push_back(operand);
+            operand = "";
+    }
+
+    QString result = calculation();
+    ui->display->setText(result);
+}
+
