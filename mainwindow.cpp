@@ -50,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent)
 //    connect(ui->btnMultiple, SIGNAL(clicked()), this, SLOT(btnBinaryOperatorClicked()));
 //    connect(ui->btnDivide, SIGNAL(clicked()), this, SLOT(btnBinaryOperatorClicked()));
 
+    // 单操作数操作符处理
     connect(ui->btnPercentage, SIGNAL(clicked()), this, SLOT(btnUnaryOperatorClicked()));
     connect(ui->btnInverse, SIGNAL(clicked()), this, SLOT(btnUnaryOperatorClicked()));
     connect(ui->btnSquare, SIGNAL(clicked()), this, SLOT(btnUnaryOperatorClicked()));
@@ -150,6 +151,7 @@ void MainWindow::on_btnDel_clicked()
 void MainWindow::on_btnClearAll_clicked()
 {
     operand.clear();
+    operands.clear();
     ui->display->setText(operand);
 }
 
@@ -218,5 +220,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         if(event->key() == btnKey)
             opertBTNs[btnKey]->animateClick(100);
     }
+
+    if(event->key() == Qt::Key_Equal)
+        ui->btnEqual->animateClick(100);
+    else if(event->key() == Qt::Key_Period)
+        ui->btnPeriod->animateClick(100);
+    else if(event->key() == Qt::Key_Percent)
+        ui->btnPercentage->animateClick(100);
+    else if(event->key() == Qt::Key_Backspace)
+        ui->btnDel->animateClick(100);
 }
 
