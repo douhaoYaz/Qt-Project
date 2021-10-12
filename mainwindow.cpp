@@ -206,6 +206,8 @@ void MainWindow::on_btnEqual_clicked()
     }
 
     QString result = calculation();
+    operands.clear();
+    operand = result;
     ui->display->setText(result);
 }
 
