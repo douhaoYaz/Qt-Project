@@ -9,5 +9,22 @@
         <file>icon/wenjianjiatianjia.png</file>
         <file>icon/wj-czwj.png</file>
         <file>icon/ziliaoku.png</file>
+        <file>icon/baocun.png</file>
+        <file>icon/chazhao.png</file>
+        <file>icon/fuzhiwenjian.png</file>
+        <file>icon/gongju.png</file>
+        <file>icon/huichetijiao.png</file>
+        <file>icon/huifu.png</file>
+        <file>icon/paste.png</file>
+        <file>icon/recover.png</file>
+        <file>icon/tihuan.png</file>
+        <file>icon/tuichu.png</file>
+        <file>icon/weibiaoti545.png</file>
+        <file>icon/youxupailie.png</file>
+        <file>icon/zhuangtai.png</file>
+        <file>icon/ziti.png</file>
+        <file>icon/tuichu1.png</file>
+        <file>icon/xinjian.png</file>
+        <file>icon/Kugga_Logo.png</file>
     </qresource>
 </RCC>

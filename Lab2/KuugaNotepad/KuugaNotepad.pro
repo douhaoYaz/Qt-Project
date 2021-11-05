@@ -12,19 +12,19 @@ SOURCES += \
     aboutdialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    repalcedialog.cpp \
+    replacedialog.cpp \
     searchdialog.cpp
 
 HEADERS += \
     aboutdialog.h \
     mainwindow.h \
-    repalcedialog.h \
+    replacedialog.h \
     searchdialog.h
 
 FORMS += \
     aboutdialog.ui \
     mainwindow.ui \
-    repalcedialog.ui \
+    replacedialog.ui \
     searchdialog.ui
 
 # Default rules for deployment.

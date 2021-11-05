@@ -49,11 +49,19 @@
      <string>文件(&amp;F)</string>
     </property>
     <addaction name="actionNew"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionFind"/>
+    <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menu_E">
     <property name="title">
      <string>编辑(&amp;E)</string>
     </property>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+    <addaction name="actionCut"/>
+    <addaction name="actionCopy"/>
+    <addaction name="actionPaste"/>
    </widget>
    <widget class="QMenu" name="menu_O">
     <property name="title">
@@ -90,12 +98,29 @@
    </attribute>
    <addaction name="actionNew"/>
    <addaction name="actionOpen"/>
+   <addaction name="actionSave"/>
+   <addaction name="actionSavaAs"/>
+   <addaction name="separator"/>
+   <addaction name="actionUndo"/>
+   <addaction name="actionRedo"/>
+   <addaction name="actionCut"/>
+   <addaction name="actionCopy"/>
+   <addaction name="actionPaste"/>
+   <addaction name="separator"/>
    <addaction name="actionFind"/>
+   <addaction name="actionReplace"/>
+   <addaction name="separator"/>
+   <addaction name="actionFont"/>
+   <addaction name="actionShowNumber"/>
+   <addaction name="actionAutoWrap"/>
+   <addaction name="separator"/>
+   <addaction name="actionToolbar"/>
+   <addaction name="actionStatusbar"/>
   </widget>
   <action name="actionNew">
    <property name="icon">
     <iconset resource="notepadRes.qrc">
-     <normaloff>:/icon/wenjianjiatianjia.png</normaloff>:/icon/wenjianjiatianjia.png</iconset>
+     <normaloff>:/icon/xinjian.png</normaloff>:/icon/xinjian.png</iconset>
    </property>
    <property name="text">
     <string>新建(&amp;N)</string>
@@ -123,6 +148,10 @@
    </property>
   </action>
   <action name="actionSave">
+   <property name="icon">
+    <iconset resource="notepadRes.qrc">
+     <normaloff>:/icon/baocun.png</normaloff>:/icon/baocun.png</iconset>
+   </property>
    <property name="text">
     <string>保存(&amp;S)</string>
    </property>
@@ -146,6 +175,10 @@
    </property>
   </action>
   <action name="actionExit">
+   <property name="icon">
+    <iconset resource="notepadRes.qrc">
+     <normaloff>:/icon/tuichu.png</normaloff>:/icon/tuichu.png</iconset>
+   </property>
    <property name="text">
     <string>退出(&amp;X)</string>
    </property>
@@ -154,6 +187,10 @@
    </property>
   </action>
   <action name="actionUndo">
+   <property name="icon">
+    <iconset resource="notepadRes.qrc">
+     <normaloff>:/icon/weibiaoti545.png</normaloff>:/icon/weibiaoti545.png</iconset>
+   </property>
    <property name="text">
     <string>撤销(&amp;U)</string>
    </property>
@@ -180,6 +217,10 @@
    </property>
   </action>
   <action name="actionCopy">
+   <property name="icon">
+    <iconset resource="notepadRes.qrc">
+     <normaloff>:/icon/fuzhiwenjian.png</normaloff>:/icon/fuzhiwenjian.png</iconset>
+   </property>
    <property name="text">
     <string>复制(&amp;C)</string>
    </property>
@@ -191,6 +232,10 @@
    </property>
   </action>
   <action name="actionPaste">
+   <property name="icon">
+    <iconset resource="notepadRes.qrc">
+     <normaloff>:/icon/paste.png</normaloff>:/icon/paste.png</iconset>
+   </property>
    <property name="text">
     <string>粘贴(&amp;P)</string>
    </property>
@@ -202,6 +247,10 @@
    </property>
   </action>
   <action name="actionFind">
+   <property name="icon">
+    <iconset resource="notepadRes.qrc">
+     <normaloff>:/icon/chazhao.png</normaloff>:/icon/chazhao.png</iconset>
+   </property>
    <property name="text">
     <string>查找(&amp;F)</string>
    </property>
@@ -213,6 +262,10 @@
    </property>
   </action>
   <action name="actionReplace">
+   <property name="icon">
+    <iconset resource="notepadRes.qrc">
+     <normaloff>:/icon/tihuan.png</normaloff>:/icon/tihuan.png</iconset>
+   </property>
    <property name="text">
     <string>替换(&amp;R)</string>
    </property>
@@ -224,6 +277,10 @@
    </property>
   </action>
   <action name="actionFont">
+   <property name="icon">
+    <iconset resource="notepadRes.qrc">
+     <normaloff>:/icon/ziti.png</normaloff>:/icon/ziti.png</iconset>
+   </property>
    <property name="text">
     <string>字体(&amp;F)</string>
    </property>
@@ -234,6 +291,10 @@
   <action name="actionAutoWrap">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="notepadRes.qrc">
+     <normaloff>:/icon/huichetijiao.png</normaloff>:/icon/huichetijiao.png</iconset>
    </property>
    <property name="text">
     <string>自动换行(&amp;W)</string>
@@ -246,6 +307,10 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="notepadRes.qrc">
+     <normaloff>:/icon/gongju.png</normaloff>:/icon/gongju.png</iconset>
+   </property>
    <property name="text">
     <string>工具栏(&amp;T)</string>
    </property>
@@ -257,6 +322,10 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="notepadRes.qrc">
+     <normaloff>:/icon/zhuangtai.png</normaloff>:/icon/zhuangtai.png</iconset>
+   </property>
    <property name="text">
     <string>状态栏(&amp;S)</string>
    </property>
@@ -265,6 +334,10 @@
    </property>
   </action>
   <action name="actionRedo">
+   <property name="icon">
+    <iconset resource="notepadRes.qrc">
+     <normaloff>:/icon/huifu.png</normaloff>:/icon/huifu.png</iconset>
+   </property>
    <property name="text">
     <string>恢复(&amp;)</string>
    </property>
@@ -295,6 +368,10 @@
    </property>
   </action>
   <action name="actionShowNumber">
+   <property name="icon">
+    <iconset resource="notepadRes.qrc">
+     <normaloff>:/icon/youxupailie.png</normaloff>:/icon/youxupailie.png</iconset>
+   </property>
    <property name="text">
     <string>显示行号(&amp;L)</string>
    </property>

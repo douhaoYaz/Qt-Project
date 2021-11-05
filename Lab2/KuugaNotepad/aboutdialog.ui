@@ -51,7 +51,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>230</y>
+     <y>250</y>
      <width>141</width>
      <height>17</height>
     </rect>
@@ -64,7 +64,7 @@
    <property name="geometry">
     <rect>
      <x>210</x>
-     <y>140</y>
+     <y>150</y>
      <width>186</width>
      <height>71</height>
     </rect>
@@ -96,14 +96,17 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>140</y>
-     <width>67</width>
-     <height>17</height>
+     <x>40</x>
+     <y>100</y>
+     <width>161</width>
+     <height>131</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">image:url(:/icon/Kugga_Logo.png)</string>
+   </property>
    <property name="text">
-    <string/>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
  </widget>
