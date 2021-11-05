@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icon/bianjiwenjian.png</file>
+        <file>icon/jianqiewenjian.png</file>
+        <file>icon/shanchuwenjian.png</file>
+        <file>icon/shanchuwenjianjia.png</file>
+        <file>icon/wenjianjia.png</file>
+        <file>icon/wenjianjiashanchu.png</file>
+        <file>icon/wenjianjiatianjia.png</file>
+        <file>icon/wj-czwj.png</file>
+        <file>icon/ziliaoku.png</file>
+    </qresource>
+</RCC>
