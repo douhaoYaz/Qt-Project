@@ -7,6 +7,8 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QTextStream>
+#include <QColorDialog>
+#include <QFontDialog>
 
 
 
@@ -34,6 +36,25 @@ MainWindow::MainWindow(QWidget *parent)
     QLabel *author = new QLabel(ui->statusbar);
     author->setText(tr("符浩扬"));
     ui->statusbar->addPermanentWidget(author);
+
+    // 初始化时先把复制、剪切、粘贴、undo和redo置为不使能状态
+    ui->actionCopy->setEnabled(false);
+    ui->actionCut->setEnabled(false);
+    ui->actionPaste->setEnabled(false);
+    ui->actionUndo->setEnabled(false);
+    ui->actionRedo->setEnabled(false);
+
+    // 设置自动换行状态
+    QPlainTextEdit::LineWrapMode mode = ui->textEdit->lineWrapMode();
+    if(mode == QTextEdit::NoWrap){
+        ui->textEdit->setLineWrapMode(QPlainTextEdit::WidgetWidth);
+        ui->actionLineWrap->setChecked(false);
+    }
+    else{
+        ui->textEdit->setLineWrapMode(QPlainTextEdit::NoWrap);
+        ui->actionLineWrap->setChecked(true);
+    }
+
 }
 
 MainWindow::~MainWindow()
@@ -205,4 +226,106 @@ bool MainWindow::userEditConfirmed()
 
 }
 
+
+
+void MainWindow::on_actionUndo_triggered()
+{
+    ui->textEdit->undo();
+}
+
+
+void MainWindow::on_actionCut_triggered()
+{
+    ui->textEdit->cut();
+    ui->actionPaste->setEnabled(true);  // 剪切后应使能粘贴
+}
+
+
+void MainWindow::on_actionCopy_triggered()
+{
+    ui->textEdit->copy();
+    ui->actionPaste->setEnabled(true);  // 复制后应使能粘贴
+}
+
+
+void MainWindow::on_actionPaste_triggered()
+{
+    ui->textEdit->paste();
+}
+
+
+void MainWindow::on_actionRedo_triggered()
+{
+    ui->textEdit->redo();
+}
+
+
+void MainWindow::on_textEdit_undoAvailable(bool b)
+{
+    ui->actionUndo->setEnabled(b);
+}
+
+
+void MainWindow::on_textEdit_copyAvailable(bool b)
+{
+    ui->actionCopy->setEnabled(b);
+    ui->actionCut->setEnabled(b);
+}
+
+
+void MainWindow::on_textEdit_redoAvailable(bool b)
+{
+    ui->actionRedo->setEnabled(b);
+}
+
+
+void MainWindow::on_actionFontColor_triggered()
+{
+    QColor color = QColorDialog::getColor(Qt::black, this, "选择颜色");
+    if(color.isValid()){
+        ui->textEdit->setStyleSheet(QString("QPlainTextEdit {color: %1}").arg(color.name()));
+    }
+}
+
+
+void MainWindow::on_actionBackgroundColor_triggered()
+{
+    QColor color = QColorDialog::getColor(Qt::black, this, "选择颜色");
+    if(color.isValid()){
+        ui->textEdit->setStyleSheet(QString("QPlainTextEdit {background-color: %1}").arg(color.name()));
+    }
+}
+
+
+void MainWindow::on_actionFontBackgroundColor_triggered()
+{
+
+}
+
+
+void MainWindow::on_actionAutoWrap_triggered()
+{
+    QPlainTextEdit::LineWrapMode mode = ui->textEdit->lineWrapMode();
+
+    if(mode == QTextEdit::NoWrap){
+        ui->textEdit->setLineWrapMode(QPlainTextEdit::WidgetWidth);
+
+        ui->actionLineWrap->setChecked(false);
+    }
+    else{
+        ui->textEdit->setLineWrapMode(QPlainTextEdit::NoWrap);
+
+        ui->actionLineWrap->setChecked(true);
+    }
+}
+
+
+void MainWindow::on_actionFont_triggered()
+{
+    bool ok = false;
+    QFont font = QFontDialog::getFont(&ok, this);
+
+    if(ok)
+        ui->textEdit->setFont(font);
+}
 
