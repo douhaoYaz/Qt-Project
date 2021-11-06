@@ -82,8 +82,8 @@
     <property name="title">
      <string>查看(&amp;V)</string>
     </property>
-    <addaction name="actionToolbar"/>
-    <addaction name="actionStatusbar"/>
+    <addaction name="actionShowToolbar"/>
+    <addaction name="actionShowStatusbar"/>
    </widget>
    <widget class="QMenu" name="menu_H">
     <property name="title">
@@ -126,8 +126,8 @@
    <addaction name="actionShowNumber"/>
    <addaction name="actionLineWrap"/>
    <addaction name="separator"/>
-   <addaction name="actionToolbar"/>
-   <addaction name="actionStatusbar"/>
+   <addaction name="actionShowToolbar"/>
+   <addaction name="actionShowStatusbar"/>
   </widget>
   <action name="actionNew">
    <property name="icon">
@@ -315,7 +315,7 @@
     <string>自动换行</string>
    </property>
   </action>
-  <action name="actionToolbar">
+  <action name="actionShowToolbar">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -330,7 +330,7 @@
     <string>工具栏</string>
    </property>
   </action>
-  <action name="actionStatusbar">
+  <action name="actionShowStatusbar">
    <property name="checkable">
     <bool>true</bool>
    </property>
