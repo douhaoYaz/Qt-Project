@@ -113,8 +113,6 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::on_actionSave_triggered()
 {
-    QFile file(filePath);
-
     if(filePath == ""){
         QString filename = QFileDialog::getSaveFileName(this, "保存文件", ".", tr("Text files (*.txt) "));
 
@@ -126,17 +124,12 @@ void MainWindow::on_actionSave_triggered()
         file.close();
         filePath = filename;
     }
-    else if(!file.open(QFile::WriteOnly | QFile::Text)){
-        QMessageBox::warning(this, "..", "打开文件失败");
 
-        QString filename = QFileDialog::getSaveFileName(this, "保存文件", ".", tr("Text files (*.txt) "));
+    QFile file(filePath);
 
-        QFile file(filename);
-        if(!file.open(QFile::WriteOnly | QFile::Text)){
-            QMessageBox::warning(this, "..", "打开保存文件失败");
-            return;
-        }
-        filePath = filename;
+    if(!file.open(QFile::WriteOnly | QFile::Text)){
+        QMessageBox::warning(this, "..", "打开保存文件失败");
+        return;
     }
 
     QTextStream out(&file);
