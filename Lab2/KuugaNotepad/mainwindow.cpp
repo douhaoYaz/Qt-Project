@@ -25,11 +25,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     // 设置编辑器右下角状态栏要显示的信息
     // 显示长度和行数
-    statusLabel.setMaximumWidth(150);   // 设置最大宽度为150
+    statusLabel.setMaximumWidth(180);   // 设置最大宽度为150
     statusLabel.setText("length: " + QString::number(0) + "    lines: " + QString::number(1));   // 设置Label内容
     ui->statusbar->addPermanentWidget(&statusLabel);    // 把该Lable添加到状态栏中
     // 显示当前光标所在行列位置
-    statusCursorLabel.setMaximumWidth(150);   // 设置最大宽度为150
+    statusCursorLabel.setMaximumWidth(180);   // 设置最大宽度为150
     statusCursorLabel.setText("Ln: " + QString::number(0) + "    Col: " + QString::number(1));   // 设置Label内容
     ui->statusbar->addPermanentWidget(&statusCursorLabel);    // 把该Lable添加到状态栏中
     // 显示编辑者
@@ -197,6 +197,9 @@ void MainWindow::on_textEdit_textChanged()
         this->setWindowTitle("*" + this->windowTitle());
         textChanged = true;
     }
+
+    statusLabel.setText("length: " + QString::number(ui->textEdit->toPlainText().length()) + "lines: " + QString::number(ui->textEdit->document()->lineCount()));
+
 }
 
 bool MainWindow::userEditConfirmed()
@@ -361,5 +364,27 @@ void MainWindow::on_actionExit_triggered()
         exit(0);
 
     // TODO 继续完善if语句返回false的情况
+}
+
+
+void MainWindow::on_textEdit_cursorPositionChanged()
+{
+    int col = 0;
+    int ln = 0;
+    int flg = -1;
+    int pos = ui->textEdit->textCursor().position();
+    QString text = ui->textEdit->toPlainText();
+
+    for(int i = 0; i < pos; i++){
+        if(text[i] == '\n'){
+            ln ++;
+            flg = i;
+        }
+    }
+
+    flg ++;
+    col = pos - flg;
+    statusCursorLabel.setText("Ln: " + QString::number(ln + 1) + "  Col: " + QString::number(col + 1));
+
 }
 
