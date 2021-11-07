@@ -384,6 +384,9 @@
    </property>
   </action>
   <action name="actionShowNumber">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="notepadRes.qrc">
      <normaloff>:/icon/youxupailie.png</normaloff>:/icon/youxupailie.png</iconset>

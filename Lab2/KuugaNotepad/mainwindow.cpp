@@ -58,6 +58,11 @@ MainWindow::MainWindow(QWidget *parent)
     // 初始化工具栏、状态栏checked状态
     ui->actionShowStatusbar->setChecked(true);
     ui->actionShowToolbar->setChecked(true);
+    // 初始化显示行号checked状态
+    ui->actionShowNumber->setChecked(false);
+//    on_actionShowNumber_triggered(false);
+
+    connect(ui->actionShowNumber, SIGNAL(triggered(bool)), ui->textEdit, SLOT(hideLineNumberArea(bool)));
 }
 
 MainWindow::~MainWindow()
@@ -387,4 +392,10 @@ void MainWindow::on_textEdit_cursorPositionChanged()
     statusCursorLabel.setText("Ln: " + QString::number(ln + 1) + "  Col: " + QString::number(col + 1));
 
 }
+
+
+//void MainWindow::on_actionShowNumber_triggered(bool checked)
+//{
+//    ui->textEdit->hideLineNumberArea(!checked);
+//}
 
