@@ -136,13 +136,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btCancel">
-       <property name="text">
-        <string>取消</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="btReplace">
        <property name="text">
         <string>替换</string>
@@ -153,6 +146,13 @@
       <widget class="QPushButton" name="btReplaceAll">
        <property name="text">
         <string>全部替换</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btCancel">
+       <property name="text">
+        <string>取消</string>
        </property>
       </widget>
      </item>

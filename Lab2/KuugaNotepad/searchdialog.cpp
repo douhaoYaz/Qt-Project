@@ -22,6 +22,9 @@ void SearchDialog::on_btFindNext_clicked()
 {
     QString target = ui->searchText->text();    // 获取对话框输入的文本，即要查找的文本
 
+    if(target == "" || pTextEdit == nullptr)
+        return;
+
     QString text = pTextEdit->toPlainText();
     QTextCursor c = pTextEdit->textCursor();
     int index = -1;
