@@ -30,7 +30,6 @@ void SearchDialog::on_btFindNext_clicked()
     int index = -1;
 
     if(ui->rdDown->isChecked()){
-        qDebug() << "able";
         index = text.indexOf(target, c.position(), ui->cbCaseSensetive->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive);
         if(index >= 0){
             c.setPosition(index);
