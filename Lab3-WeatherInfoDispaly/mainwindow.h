@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QLabel>
 #include <QMap>
+#include <QStringListModel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -32,6 +33,8 @@ public:
 private slots:
     void on_action_triggered();
 
+    void on_listView_clicked(const QModelIndex &index);
+
 private:
 
     void processRecord(QString str);
@@ -41,5 +44,7 @@ private:
     QLabel *labelStationInfo;   // 状态栏显示鼠标坐标处的气象站点
 
     QMap<QString, QList<WeatherRecord>> weatherRecordsMap;
+
+    QStringListModel *theModel;
 };
 #endif // MAINWINDOW_H

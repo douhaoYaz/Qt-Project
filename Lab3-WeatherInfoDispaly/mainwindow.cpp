@@ -28,6 +28,11 @@ MainWindow::MainWindow(QWidget *parent)
     author->setText(tr("201841510108 符浩扬"));
     ui->statusbar->addPermanentWidget(author);
 
+    // 创建模型
+    theModel = new QStringListModel(this);
+    // 把模型和view关联起来
+    ui->listView->setModel(theModel);
+
 }
 
 MainWindow::~MainWindow()
@@ -57,10 +62,15 @@ void MainWindow::on_action_triggered()
             processRecord(str);
         }
 
+        QStringList strList;
         for(auto key: weatherRecordsMap.keys())
         {
             qDebug() << key << ":" << weatherRecordsMap[key].size();
+            strList << key;
         }
+
+        theModel->setStringList(strList);
+
         aFile.close();//关闭文件
     }
 }
@@ -88,5 +98,12 @@ void MainWindow::processRecord(QString recordStr)
     record.relative_humidity = tmpList[8].toDouble();
 
     weatherRecordsMap[record.key].append(record);
+}
+
+
+void MainWindow::on_listView_clicked(const QModelIndex &index)
+{
+    QString stationKey = theModel->data(index).toString();
+    labelStationInfo->setText(QString("当前气象站点:%1").arg(stationKey));
 }
 
