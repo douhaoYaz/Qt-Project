@@ -34,7 +34,7 @@
         </size>
        </property>
       </widget>
-      <widget class="QGraphicsView" name="graphicsView">
+      <widget class="QWChartView" name="chartView">
        <property name="minimumSize">
         <size>
          <width>600</width>
@@ -122,6 +122,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWChartView</class>
+   <extends>QGraphicsView</extends>
+   <header>qwchartview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="icon.qrc"/>
  </resources>

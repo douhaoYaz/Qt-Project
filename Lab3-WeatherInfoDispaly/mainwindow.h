@@ -5,6 +5,8 @@
 #include <QLabel>
 #include <QMap>
 #include <QStringListModel>
+#include <QtCharts>
+#include <QLineSeries>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -38,13 +40,17 @@ private slots:
 private:
 
     void processRecord(QString str);
+    void createChart();
     Ui::MainWindow *ui;
 
     QLabel *labXYValue; // 状态栏显示鼠标坐标处的日期和温度
     QLabel *labelStationInfo;   // 状态栏显示鼠标坐标处的气象站点
 
     QMap<QString, QList<WeatherRecord>> weatherRecordsMap;
+    QMap<QString, QLineSeries *> lineSeries;
 
     QStringListModel *theModel;
+    QValueAxis *axisX;
+    QValueAxis *axisY;
 };
 #endif // MAINWINDOW_H

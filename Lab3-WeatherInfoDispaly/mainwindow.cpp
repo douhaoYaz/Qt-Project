@@ -33,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent)
     // 把模型和view关联起来
     ui->listView->setModel(theModel);
 
+    createChart();
+
 }
 
 MainWindow::~MainWindow()
@@ -104,6 +106,61 @@ void MainWindow::processRecord(QString recordStr)
 void MainWindow::on_listView_clicked(const QModelIndex &index)
 {
     QString stationKey = theModel->data(index).toString();
-    labelStationInfo->setText(QString("当前气象站点:%1").arg(stationKey));
+    labelStationInfo->setText(QString("当前气象站点：%1").arg(stationKey));
+    ui->chartView->chart()->setTitle(QString("气象信息：%1").arg(stationKey));
+
+    // 每次点击listView的项时先清除右边chart的内容，然后再显示数据
+    lineSeries["average_temperature"]->clear();
+    lineSeries["minimum_temperature"]->clear();
+    lineSeries["maximum_temperature"]->clear();
+    int count = 0;
+
+    for(auto record : weatherRecordsMap[stationKey]){
+        lineSeries["average_temperature"]->append(count, record.average_temperature);
+        lineSeries["minimum_temperature"]->append(count, record.minimum_temperature);
+        lineSeries["maximum_temperature"]->append(count, record.maximum_temperature);
+        count++;
+    }
+
+
 }
 
+void MainWindow::createChart()
+{ //创建图表
+    QChart *chart = new QChart();
+    ui->chartView->setChart(chart);
+    ui->chartView->setRenderHint(QPainter::Antialiasing);
+    ui->chartView->setCursor(Qt::CrossCursor); //设置鼠标指针为十字星
+
+    axisX = new QValueAxis;
+    axisX->setRange(0, 360); //设置坐标轴范围
+    axisX->setLabelFormat("%.1f"); //标签格式
+    axisX->setTickCount(10); //主分隔个数
+    axisX->setMinorTickCount(2);//4
+    axisX->setTitleText("日期"); //标题
+
+    axisY = new QValueAxis;
+    axisY->setRange(-30, 50);
+    axisY->setTitleText("温度");
+    axisY->setTickCount(9);
+    axisY->setLabelFormat("%.2f"); //标签格式
+    axisY->setMinorTickCount(2);//4
+
+//另外一种添加坐标轴的方式，Qt 5.12.1中编译没问题
+    chart->addAxis(axisX,Qt::AlignBottom); //坐标轴添加到图表，并指定方向
+    chart->addAxis(axisY,Qt::AlignLeft);
+
+    lineSeries["average_temperature"] = new QLineSeries();
+    lineSeries["average_temperature"]->setName("平均温度");
+    lineSeries["minimum_temperature"] = new QLineSeries();
+    lineSeries["minimum_temperature"]->setName("最低温度");
+    lineSeries["maximum_temperature"] = new QLineSeries();
+    lineSeries["maximum_temperature"]->setName("最高温度");
+
+    for(auto key : lineSeries.keys()){
+        chart->addSeries(lineSeries[key]);
+        lineSeries[key]->attachAxis(axisX); // 序列 series1 附加坐标轴
+        lineSeries[key]->attachAxis(axisY);
+    }
+
+}
