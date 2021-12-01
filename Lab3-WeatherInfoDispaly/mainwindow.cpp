@@ -56,6 +56,7 @@ void MainWindow::on_action_triggered()
     QFile aFile(aFileName);  //以文件方式读出
     if (aFile.open(QIODevice::ReadOnly | QIODevice::Text)) //以只读文本方式打开文件
     {
+        weatherRecordsMap.clear();
         QTextStream aStream(&aFile); //用文本流读取文件
         while (!aStream.atEnd())
         {
@@ -89,7 +90,7 @@ void MainWindow::processRecord(QString recordStr)
         return;
     }
 
-    record.date = tmpList[0];
+    record.date = QDateTime::fromString(tmpList[0], "yyyy/M/d");
     record.key = tmpList[1];
     record.average_temperature = tmpList[2].toDouble();
     record.minimum_temperature = tmpList[3].toDouble();
@@ -99,7 +100,10 @@ void MainWindow::processRecord(QString recordStr)
     record.dew_point = tmpList[7].toDouble();
     record.relative_humidity = tmpList[8].toDouble();
 
-    weatherRecordsMap[record.key].append(record);
+    if(record.date.isValid())
+        weatherRecordsMap[record.key].append(record);
+    else
+        qDebug() << tmpList[0];
 }
 
 
@@ -116,12 +120,14 @@ void MainWindow::on_listView_clicked(const QModelIndex &index)
     int count = 0;
 
     for(auto record : weatherRecordsMap[stationKey]){
-        lineSeries["average_temperature"]->append(count, record.average_temperature);
-        lineSeries["minimum_temperature"]->append(count, record.minimum_temperature);
-        lineSeries["maximum_temperature"]->append(count, record.maximum_temperature);
+        lineSeries["average_temperature"]->append(record.date.toMSecsSinceEpoch(), record.average_temperature);
+        lineSeries["minimum_temperature"]->append(record.date.toMSecsSinceEpoch(), record.minimum_temperature);
+        lineSeries["maximum_temperature"]->append(record.date.toMSecsSinceEpoch(), record.maximum_temperature);
         count++;
     }
 
+    axisX->setRange(weatherRecordsMap[stationKey].at(0).date,
+                    weatherRecordsMap[stationKey].at(0).date.addDays(weatherRecordsMap[stationKey].size()));
 
 }
 
@@ -132,11 +138,9 @@ void MainWindow::createChart()
     ui->chartView->setRenderHint(QPainter::Antialiasing);
     ui->chartView->setCursor(Qt::CrossCursor); //设置鼠标指针为十字星
 
-    axisX = new QValueAxis;
-    axisX->setRange(0, 360); //设置坐标轴范围
-    axisX->setLabelFormat("%.1f"); //标签格式
-    axisX->setTickCount(10); //主分隔个数
-    axisX->setMinorTickCount(2);//4
+    axisX = new QDateTimeAxis;
+    axisX->setTickCount(12); //主分隔个数
+    axisX->setFormat("yyyy-MM-dd");
     axisX->setTitleText("日期"); //标题
 
     axisY = new QValueAxis;

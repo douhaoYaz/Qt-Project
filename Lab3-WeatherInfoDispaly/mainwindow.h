@@ -13,7 +13,7 @@ namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 typedef struct WeatherRecord{
-    QString date;
+    QDateTime date;
     QString key{"UNKNOWN"};
     double average_temperature{0};
     double minimum_temperature{0};
@@ -50,7 +50,7 @@ private:
     QMap<QString, QLineSeries *> lineSeries;
 
     QStringListModel *theModel;
-    QValueAxis *axisX;
+    QDateTimeAxis *axisX;
     QValueAxis *axisY;
 };
 #endif // MAINWINDOW_H
