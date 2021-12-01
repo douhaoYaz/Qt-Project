@@ -37,6 +37,15 @@ private slots:
 
     void on_listView_clicked(const QModelIndex &index);
 
+    void on_actionZoomIn_triggered();
+
+    void on_actionZoomOut_triggered();
+
+    void on_actionResetZoom_triggered();
+
+    void on_LegendMarkerClicked();  // 图例单击槽函数，自定义槽函数
+    void on_mouseMovePoint(QPoint point);   // 鼠标移动事件，自定义槽函数
+
 private:
 
     void processRecord(QString str);

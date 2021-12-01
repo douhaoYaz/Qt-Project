@@ -35,6 +35,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     createChart();
 
+    QObject::connect(ui->chartView,SIGNAL(mouseMovePoint(QPoint)),
+                     this, SLOT(on_mouseMovePoint(QPoint)));  //鼠标移动事件
+
 }
 
 MainWindow::~MainWindow()
@@ -167,4 +170,71 @@ void MainWindow::createChart()
         lineSeries[key]->attachAxis(axisY);
     }
 
+    foreach (QLegendMarker* marker, chart->legend()->markers())
+    {
+        connect(marker, SIGNAL(clicked()), this, SLOT(on_LegendMarkerClicked()));
+    }
+
+}
+
+void MainWindow::on_actionZoomIn_triggered()
+{
+    ui->chartView->chart()->zoom(1.2);
+}
+
+
+void MainWindow::on_actionZoomOut_triggered()
+{
+    ui->chartView->chart()->zoom(0.8);
+}
+
+
+void MainWindow::on_actionResetZoom_triggered()
+{
+    ui->chartView->chart()->zoomReset();
+}
+
+void MainWindow::on_LegendMarkerClicked()
+{//点击图例的marker的响应
+    QLegendMarker* marker = qobject_cast<QLegendMarker*> (sender());
+
+    switch (marker->type()) //marker的类型
+    {
+        case QLegendMarker::LegendMarkerTypeXY: //QLineSeries序列的图例marker
+        {
+            marker->series()->setVisible(!marker->series()->isVisible()); //可见性
+            marker->setVisible(true);
+            qreal alpha = 1.0;
+            if (!marker->series()->isVisible())
+                alpha = 0.5;
+
+            QColor color;
+            QBrush brush = marker->labelBrush();
+            color = brush.color();
+            color.setAlphaF(alpha);
+            brush.setColor(color);
+            marker->setLabelBrush(brush);
+
+            brush = marker->brush();
+            color = brush.color();
+            color.setAlphaF(alpha);
+            brush.setColor(color);
+            marker->setBrush(brush);
+
+            QPen pen = marker->pen();
+            color = pen.color();
+            color.setAlphaF(alpha);
+            pen.setColor(color);
+            marker->setPen(pen);
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+void MainWindow::on_mouseMovePoint(QPoint point)
+{ //鼠标移动响应
+    QPointF pt=ui->chartView->chart()->mapToValue(point); //转换为图表的数值
+    labXYValue->setText(QString("日期=%1, 气温=%2").arg(QDateTime::fromMSecsSinceEpoch(pt.x()).toString("yyyy-MM-dd")).arg(pt.y(), 5, 'f', 2, '0'));
 }
