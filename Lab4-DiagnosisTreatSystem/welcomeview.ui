@@ -31,6 +31,18 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="btDepartment">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
        <property name="text">
         <string>科室管理</string>
        </property>
@@ -38,6 +50,18 @@
      </item>
      <item>
       <widget class="QPushButton" name="btDoctor">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
        <property name="text">
         <string>医生管理</string>
        </property>
@@ -45,6 +69,18 @@
      </item>
      <item>
       <widget class="QPushButton" name="btPatient">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>100</height>
+        </size>
+       </property>
        <property name="text">
         <string>患者管理</string>
        </property>
