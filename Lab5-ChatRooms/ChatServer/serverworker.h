@@ -17,6 +17,7 @@ public:
 signals:
     void logMessage(const QString &msg);
     void jsonReceived(ServerWorker *sender, const QJsonObject &docObj);
+    void disconnectedFromClient();
 
 private:
     QTcpSocket *m_serverSocket;
